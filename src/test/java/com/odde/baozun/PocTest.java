@@ -30,10 +30,13 @@ public class PocTest {
     @Test
     public void update_with_dual_id_fields() {
         Shop shop = new Shop();
+        shop.setId(100);
         shop.setName("Nike");
         shop.setCode("nike");
         shop = shopRepo.save(shop);
+//        shop = shopRepo.findAll().get(0);
         Order order = new Order();
+        order.setOrderId(50);
         order.setName("Test order");
         order.setShop(shop);
         order = orderRepo.save(order);

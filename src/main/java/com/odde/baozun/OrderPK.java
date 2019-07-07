@@ -6,30 +6,14 @@ import static java.util.Objects.hash;
 
 public class OrderPK implements Serializable {
 
-    private long id;
-    private String shop;
+    private long orderId;
+    private long shop;
 
     public OrderPK() {
     }
 
-    public OrderPK(long id, String shop) {
-        this.id = id;
-        this.shop = shop;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getShop() {
-        return shop;
-    }
-
-    public void setShop(String shop) {
+    public OrderPK(long orderId, long shop) {
+        this.orderId = orderId;
         this.shop = shop;
     }
 
@@ -38,12 +22,12 @@ public class OrderPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderPK orderPK = (OrderPK) o;
-        return id == orderPK.id &&
+        return orderId == orderPK.orderId &&
                 shop == orderPK.shop;
     }
 
     @Override
     public int hashCode() {
-        return hash(id, shop);
+        return hash(orderId, shop);
     }
 }

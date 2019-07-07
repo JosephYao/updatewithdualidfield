@@ -1,23 +1,23 @@
 package com.odde.baozun;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "baozun_shops")
 public class Shop {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String code;
 
     private String name;
 
-    @OneToMany(mappedBy = "shop", fetch = FetchType.EAGER)
-    private Set<Order> orders = new HashSet<Order>();
+    @OneToMany(mappedBy = "shop", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<Order>();
 
     public String getCode() {
         return code;
@@ -27,7 +27,7 @@ public class Shop {
         this.code = code;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 

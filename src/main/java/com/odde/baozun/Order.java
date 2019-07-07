@@ -5,18 +5,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "baozun_orders")
-//@IdClass(OrderPK.class)
+@IdClass(OrderPK.class)
 public class Order implements Serializable {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private long orderId;
     @Column(name = "name")
     private String name;
 
-    @PrimaryKeyJoinColumn(name = "shop_code", referencedColumnName = "code")
-    @ManyToOne
+    @Id
+    @ManyToOne(cascade = CascadeType.ALL)
     private Shop shop;
 
     public Shop getShop() {
@@ -36,11 +36,11 @@ public class Order implements Serializable {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 }
