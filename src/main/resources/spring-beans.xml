@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <bean id="pocService" class="com.odde.baozun.PocService"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://mysql.tool.pb-internal:23306/packagebutler"
+          p:username="admin" p:password="123456"/>
+
+    <bean id="hibernateJpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+    <!-- Configure the entity manager factory bean -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <property name="packagesToScan" value="com.odde.baozun"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.jdbc.batch_size">100</prop>
+                <prop key="hibernate.id.new_generator_mappings">false</prop>
+                <prop key="hibernate.allow_update_outside_transaction">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Configure the transaction manager bean -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
+
+    <jpa:repositories base-package="com.odde.baozun"/>
 
 </beans>
