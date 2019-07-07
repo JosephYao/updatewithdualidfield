@@ -6,4 +6,5 @@ public interface OrderRepo extends Repository<Order, Long> {
 
     void save(Order order);
 
+    void deleteAll();
 }

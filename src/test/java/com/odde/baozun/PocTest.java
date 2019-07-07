@@ -1,6 +1,7 @@
 package com.odde.baozun;
 
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,17 @@ public class PocTest {
     @Autowired
     PocService pocService;
 
+    @Autowired
+    OrderRepo orderRepo;
+
+    @Before
+    public void cleanUp() {
+        orderRepo.deleteAll();
+    }
+
     @Test
     public void update_with_dual_id_fields() {
-
         pocService.updateOrder();
-
     }
 
 }
