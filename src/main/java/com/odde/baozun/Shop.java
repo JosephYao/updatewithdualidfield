@@ -1,9 +1,8 @@
 package com.odde.baozun;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "baozun_shops")
@@ -13,7 +12,28 @@ public class Shop {
     @GeneratedValue
     private long id;
 
+    private String code;
+
     private String name;
+
+    @OneToMany(mappedBy = "shop", fetch = FetchType.EAGER)
+    private Set<Order> orders = new HashSet<Order>();
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 
     public long getId() {
         return id;

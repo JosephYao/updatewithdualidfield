@@ -31,11 +31,12 @@ public class PocTest {
     public void update_with_dual_id_fields() {
         Shop shop = new Shop();
         shop.setName("Nike");
-        shopRepo.save(shop);
+        shop.setCode("nike");
+        shop = shopRepo.save(shop);
         Order order = new Order();
         order.setName("Test order");
         order.setShop(shop);
-        orderRepo.save(order);
+        order = orderRepo.save(order);
 
         pocService.updateOrderName(order, "a new name");
     }

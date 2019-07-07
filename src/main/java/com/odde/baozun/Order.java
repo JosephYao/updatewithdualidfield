@@ -1,18 +1,21 @@
 package com.odde.baozun;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "baozun_orders")
-public class Order {
+//@IdClass(OrderPK.class)
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private long id;
     @Column(name = "name")
     private String name;
 
-    @JoinColumn(name = "shop_id")
+    @PrimaryKeyJoinColumn(name = "shop_code", referencedColumnName = "code")
     @ManyToOne
     private Shop shop;
 
@@ -22,6 +25,7 @@ public class Order {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+        shop.addOrder(this);
     }
 
     public String getName() {
