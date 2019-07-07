@@ -7,9 +7,8 @@ public class PocService {
     @Autowired
     OrderRepo orderRepo;
 
-    public void updateOrder() {
-        Order order = new Order();
-        order.setName("Test Order");
+    public void updateOrderName(Order order, String name) {
+        order.setName(name);
         orderRepo.save(order);
     }
 }

@@ -18,14 +18,26 @@ public class PocTest {
     @Autowired
     OrderRepo orderRepo;
 
+    @Autowired
+    ShopRepo shopRepo;
+
     @Before
     public void cleanUp() {
         orderRepo.deleteAll();
+        shopRepo.deleteAll();
     }
 
     @Test
     public void update_with_dual_id_fields() {
-        pocService.updateOrder();
+        Shop shop = new Shop();
+        shop.setName("Nike");
+        shopRepo.save(shop);
+        Order order = new Order();
+        order.setName("Test order");
+        order.setShop(shop);
+        orderRepo.save(order);
+
+        pocService.updateOrderName(order, "a new name");
     }
 
 }

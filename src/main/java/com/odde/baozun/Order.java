@@ -12,6 +12,18 @@ public class Order {
     @Column(name = "name")
     private String name;
 
+    @JoinColumn(name = "shop_id")
+    @ManyToOne
+    private Shop shop;
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     public String getName() {
         return name;
     }
